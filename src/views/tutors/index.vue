@@ -29,7 +29,11 @@
           </thead>
           <tbody>
             <!-- row 1 -->
+<<<<<<< HEAD
             <tr v-for="tutor in tutores" :key="tutor.id">
+=======
+            <tr v-for="item in tutores" :key="item.data.nome">
+>>>>>>> upstream/turma02-localbase
               <th>
                 <label>
                   <input type="checkbox" class="checkbox" />
@@ -46,6 +50,7 @@
                     </div>
                   </div>
                   <div>
+<<<<<<< HEAD
                     <div class="font-bold">{{ tutor.nome }}</div>
                     <div class="text-sm opacity-50">
                       {{ tutor.endereco.cidade ?? "Cliente sem cidade" }}
@@ -72,6 +77,35 @@
               </td>
               <th>
                 <button class="btn btn-ghost btn-xs">details</button>
+=======
+                    <div class="font-bold">{{ item.data?.nome }}</div>
+                    <div class="text-sm opacity-50">United States</div>
+                  </div>
+                </div>
+              </td>
+              <td>
+                Zemlak, Daniel and Leannon
+                <br />
+                <span class="badge badge-ghost badge-sm">Desktop Support Technician</span>
+              </td>
+              <td>Purple</td>
+              <th>
+                <router-link
+                  class="btn btn-info btn-xs"
+                  :to="{ name: 'tutors.edit', params: { id: item.key } }"
+                  >editar</router-link
+                >
+                <a href="#my_modal_1" class="btn btn-error btn-xs"> Deletar </a>
+                <div class="modal" role="dialog" id="my_modal_1">
+                  <div class="modal-box">
+                    <h3 class="text-lg font-bold">Hello!</h3>
+                    <p class="py-4">This modal works with anchor links</p>
+                    <div class="modal-action">
+                      <a href="#" class="btn">Yay!</a>
+                    </div>
+                  </div>
+                </div>
+>>>>>>> upstream/turma02-localbase
               </th>
             </tr>
           </tbody>
@@ -84,6 +118,7 @@
 
 <script setup>
 import breadcrumbs from "@/components/breadcrumbs.vue";
+<<<<<<< HEAD
 import { ref, onMounted } from "vue";
 import { useRouter } from "vue-router";
 import Localbase from "localbase";
@@ -91,11 +126,22 @@ import Localbase from "localbase";
 let db;
 onMounted(() => {
   db = new Localbase("db");
+=======
+import DBService from "@/services/DBService";
+import { onMounted, ref, useTemplateRef } from "vue";
+import { useRouter } from "vue-router";
+
+const router = useRouter();
+const dialog = useTemplateRef("my_modal_1");
+
+onMounted(async () => {
+>>>>>>> upstream/turma02-localbase
   capturarTutores();
 });
 
 const tutores = ref([]);
 
+<<<<<<< HEAD
 const capturarTutores = async () => {
   tutores.value = await db.collection("tutores").get();
 };
@@ -105,6 +151,19 @@ const router = useRouter();
 const adicionar = () => {
   router.push({ name: "tutors.add" });
 };
+=======
+const adicionar = () => {
+  router.push({ name: "tutors.add" });
+};
+
+const capturarTutores = async () => {
+  tutores.value = await DBService.listar("tutores");
+};
+
+function manipularModal() {
+  dialog.showModal();
+}
+>>>>>>> upstream/turma02-localbase
 </script>
 
 <style lang="scss" scoped></style>
